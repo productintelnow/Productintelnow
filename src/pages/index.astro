@@ -1,0 +1,99 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CONTENT_TYPE_LABELS } from '../config/constants.mjs';
+import { crossSections, topicSections } from '../config/sections.mjs';
+import { site } from '../config/site';
+
+const articles = (await getCollection('articles')).sort((a, b) => a.data.content_id.localeCompare(b.data.content_id));
+const published = articles.filter((article) => article.data.status === 'published');
+---
+
+<BaseLayout title="GarageIntel — product intelligence for the garage" description={site.description}>
+  <div class="wrap">
+    <p class="kicker">Product intelligence</p>
+    <h1>Know the tool before it earns a hook on the wall.</h1>
+    <p class="lede">{site.tagline} Version 1 is the publishing system: the pages, the product database, and the rules for affiliate links. The reviews themselves are not written yet.</p>
+    <div class="fact-row">
+      <article class="fact">
+        <h2>No invented prices</h2>
+        <p>Amazon price and availability stay off the page. A button reads “Check current price on Amazon” only when a real link exists.</p>
+      </article>
+      <article class="fact">
+        <h2>Samples are labeled</h2>
+        <p>Demo articles use Example Brand and product ids that start with demo-. They are noindex and absent from the sitemap.</p>
+      </article>
+      <article class="fact">
+        <h2>Links are accountable</h2>
+        <p>{site.disclosure} A missing link is an inactive control, never a URL.</p>
+      </article>
+    </div>
+
+    <section aria-labelledby="topics-heading">
+      <h2 id="topics-heading">Sections</h2>
+      <div class="section-grid topics">
+        {
+          topicSections.map((section) => (
+            <a class="section-card" href={`/${section.slug}`}>
+              <p class="kicker">{section.kicker}</p>
+              <h3>{section.title}</h3>
+              <p>{section.description}</p>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section aria-labelledby="library-heading">
+      <h2 id="library-heading">Guides, deals, and comparisons</h2>
+      <div class="section-grid">
+        {
+          crossSections.map((section) => (
+            <a class="section-card" href={`/${section.slug}`}>
+              <p class="kicker">{section.kicker}</p>
+              <h3>{section.title}</h3>
+              <p>{section.description}</p>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section aria-labelledby="published-home">
+      <h2 id="published-home">Published articles</h2>
+      {
+        published.length === 0 ? (
+          <p>None yet. The <a href="/how-we-review">review method</a> is written. The product records are still the demo set.</p>
+        ) : (
+          <ul class="article-list">
+            {published.map((article) => (
+              <li>
+                <a href={`/${article.data.category}/${article.data.slug}`}>{article.data.title}</a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </section>
+
+    <section aria-labelledby="previews-heading">
+      <h2 id="previews-heading">Template previews</h2>
+      <p>Open these to see each layout. They are not recommendations.</p>
+      <ul class="article-list">
+        {
+          articles
+            .filter((article) => article.data.status !== 'published')
+            .map((article) => (
+              <li>
+                <a href={`/${article.data.category}/${article.data.slug}`}>
+                  <span class="badge">{article.data.status}</span>
+                  {article.data.title}
+                </a>
+                <p>{CONTENT_TYPE_LABELS[article.data.content_type]}</p>
+              </li>
+            ))
+        }
+      </ul>
+    </section>
+  </div>
+</BaseLayout>

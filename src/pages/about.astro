@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { site } from '../config/site';
+import { breadcrumbLd } from '../lib/structured.mjs';
+
+const title = 'About';
+const description = 'GarageIntel is a product-intelligence site for garage, automotive, tool, and connected-home gear. Version 1 is the publishing system, not a catalog of finished reviews.';
+const crumbs = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+];
+---
+
+<BaseLayout title={title} description={description} jsonLd={[breadcrumbLd(site.url, crumbs)]}>
+  <div class="wrap prose">
+    <Breadcrumbs items={crumbs} />
+    <h1>About GarageIntel</h1>
+    <p class="lede">{description}</p>
+    <p>
+      The garage is where tools, cars, and the connected house meet. A drill, a scan tool, a robot vacuum, and a lock on the side door do not belong in separate corners of the internet if the person buying them is standing in the same bay. GarageIntel is built to keep those decisions in one library, with the product facts in a database instead of copied into every article.
+    </p>
+    <p>
+      Version 1 does not pretend the library is full. The section pages, the article templates, and the sample posts exist so the structure can be reviewed. Sample posts use the brand name Example Brand and product ids that start with <code>demo-</code>. They are not for sale and they are not reviews.
+    </p>
+    <h2>Who publishes this</h2>
+    <p>
+      Legal entity: <span class="placeholder">{site.legalEntity}</span>.
+      Mailing address: <span class="placeholder">{site.mailingAddress}</span>.
+      Email: <span class="placeholder">{site.contactEmail}</span>.
+      Those three values are placeholders until the owner supplies them. This page will not invent a company name or a street address.
+    </p>
+    <p>
+      The byline on sample articles, GarageIntel Desk, is the editorial masthead for the publishing system. It is not a person’s name.
+    </p>
+    <h2>How the site is organized</h2>
+    <p>
+      Topic sections cover <a href="/automotive">automotive</a>, <a href="/tools">tools</a>, <a href="/garage">garage</a>, <a href="/smart-home">smart home</a>, <a href="/robot-vacuums">robot vacuums</a>, <a href="/security">security</a>, and <a href="/smart-locks">smart locks</a>. Cross sections collect <a href="/deals">deals</a>, <a href="/trending">trending notes</a>, <a href="/comparisons">comparisons</a>, and <a href="/buying-guides">buying guides</a>.
+    </p>
+    <p>
+      Read the <a href="/how-we-review">review method</a> and the <a href="/affiliate-disclosure">affiliate disclosure</a> before treating any future article as advice. The <a href="/privacy">privacy policy</a> explains analytics and advertising cookies, which are not loaded until the owner adds the ids.
+    </p>
+  </div>
+</BaseLayout>

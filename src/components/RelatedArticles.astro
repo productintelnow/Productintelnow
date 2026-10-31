@@ -1,0 +1,21 @@
+---
+import { CONTENT_TYPE_LABELS } from '../config/constants.mjs';
+
+const { articles = [] } = Astro.props;
+---
+
+{
+  articles.length > 0 && (
+    <section class="related" aria-labelledby="related-heading">
+      <h2 id="related-heading">Related pages</h2>
+      <ul>
+        {articles.map((article) => (
+          <li>
+            <a href={`/${article.data.category}/${article.data.slug}`}>{article.data.title}</a>
+            <span class="meta-line"> · {CONTENT_TYPE_LABELS[article.data.content_type]}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

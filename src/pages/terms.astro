@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { site } from '../config/site';
+import { breadcrumbLd } from '../lib/structured.mjs';
+
+const title = 'Terms of use';
+const description = 'Terms for using GarageIntel. The site is information, sample pages are fictional, and affiliate links do not show a price or a promise of availability.';
+const crumbs = [
+  { href: '/', label: 'Home' },
+  { href: '/terms', label: 'Terms' },
+];
+---
+
+<BaseLayout title={title} description={description} jsonLd={[breadcrumbLd(site.url, crumbs)]}>
+  <div class="wrap prose">
+    <Breadcrumbs items={crumbs} />
+    <h1>Terms of use</h1>
+    <p class="lede">{description}</p>
+    <p>
+      These terms cover the public pages of GarageIntel, published by <span class="placeholder">{site.legalEntity}</span>. The legal name and the governing law are not filled in yet. Do not read a state or a country into that blank. Questions can be sent to <span class="placeholder">{site.contactEmail}</span> when the mailbox exists. The mailing address on file is <span class="placeholder">{site.mailingAddress}</span>.
+    </p>
+    <h2>Information, not a promise</h2>
+    <p>
+      Articles are general information about products and how to choose them. They are not a professional inspection of your car, your door, or your electrical system. Specifications on sample pages are placeholders. Even a published specification can be wrong if a manufacturer changes a model. Check the current manual before you buy or install anything.
+    </p>
+    <h2>Samples</h2>
+    <p>
+      Pages marked sample or draft use fictional demo products. They are not offers, not reviews, and not safe to treat as instructions. Troubleshooting samples are not repair procedures.
+    </p>
+    <h2>Affiliate links and ads</h2>
+    <p>
+      {site.disclosure} A link to a retailer is not a warranty from us, and we do not control that site’s price, stock, or return rules. We do not display Amazon price or availability. Advertising, when the owner enables AdSense, is labeled and is separate from affiliate buttons. See the <a href="/affiliate-disclosure">affiliate disclosure</a> and the <a href="/privacy">privacy policy</a>.
+    </p>
+    <h2>Acceptable use</h2>
+    <p>
+      Do not misuse the site, attempt to break the build, or present sample pages as independent test reports. You may link to public pages.
+    </p>
+    <h2>Liability</h2>
+    <p>
+      The site is provided as available. To the extent the law allows, the operator is not liable for decisions you make from a page, including purchases, installations, or repairs. Some places do not allow that limit. Where a limit is not allowed, it does not apply. This paragraph is boilerplate for a publishing site, and the owner should have a lawyer read it before the legal entity name is filled in.
+    </p>
+  </div>
+</BaseLayout>

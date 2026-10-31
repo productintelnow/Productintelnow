@@ -1,0 +1,11 @@
+---
+import ProductCard from '../ProductCard.astro';
+
+const { article, resolved } = Astro.props;
+---
+
+<section aria-labelledby="guide-products">
+  <h2 id="guide-products">Products used to preview the cards</h2>
+  <p>The lesson is in the article above. These cards are not the lesson.</p>
+  {resolved.map((item) => <ProductCard item={item} article={article} location="buying-guide-card" />)}
+</section>

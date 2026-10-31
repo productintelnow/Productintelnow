@@ -1,0 +1,11 @@
+---
+import ProductCard from '../ProductCard.astro';
+
+const { article, resolved } = Astro.props;
+---
+
+<section aria-labelledby="trend-heading">
+  <h2 id="trend-heading">The product being discussed</h2>
+  <p>A published trending page names the change and the source. The card is only how a reader would leave for the retailer.</p>
+  {resolved.map((item) => <ProductCard item={item} article={article} location="trending-card" />)}
+</section>

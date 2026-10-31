@@ -1,0 +1,30 @@
+---
+import Alternatives from './Alternatives.astro';
+import BestOf from './BestOf.astro';
+import BuyingGuide from './BuyingGuide.astro';
+import CalculatorArticle from './CalculatorArticle.astro';
+import Compatibility from './Compatibility.astro';
+import Deal from './Deal.astro';
+import Educational from './Educational.astro';
+import Review from './Review.astro';
+import Trending from './Trending.astro';
+import Troubleshooting from './Troubleshooting.astro';
+import Versus from './Versus.astro';
+
+const { article, resolved } = Astro.props;
+const type = article.content_type;
+---
+
+<div class="module">
+  {type === 'best-of' && <BestOf article={article} resolved={resolved} />}
+  {type === 'review' && <Review article={article} resolved={resolved} />}
+  {type === 'versus' && <Versus article={article} resolved={resolved} />}
+  {type === 'troubleshooting' && <Troubleshooting article={article} resolved={resolved} />}
+  {type === 'buying-guide' && <BuyingGuide article={article} resolved={resolved} />}
+  {type === 'alternatives' && <Alternatives article={article} resolved={resolved} />}
+  {type === 'compatibility' && <Compatibility article={article} resolved={resolved} />}
+  {type === 'deal' && <Deal article={article} resolved={resolved} />}
+  {type === 'trending' && <Trending article={article} resolved={resolved} />}
+  {type === 'educational' && <Educational />}
+  {type === 'calculator' && <CalculatorArticle article={article} />}
+</div>

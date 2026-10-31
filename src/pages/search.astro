@@ -1,0 +1,72 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CONTENT_TYPE_LABELS } from '../config/constants.mjs';
+
+const articles = (await getCollection('articles')).sort((a, b) => a.data.title.localeCompare(b.data.title));
+const description = 'Search GarageIntel articles by title, keyword, and content id. The query is kept in the q parameter so site search can be measured.';
+---
+
+<BaseLayout title="Search" description={description} noindex={true} contentStatus="search">
+  <div class="wrap">
+    <h1>Search</h1>
+    <p class="lede">{description}</p>
+    <form id="search-form" action="/search" method="get" role="search">
+      <label for="q">Search articles</label>
+      <input id="q" name="q" type="search" placeholder="Try demo, lock, or GI-2026" />
+      <button class="cta" type="submit">Search</button>
+    </form>
+    <p id="search-count" class="meta-line">{articles.length} articles in the index, including samples.</p>
+    <ul class="article-list" id="results">
+      {
+        articles.map((article) => {
+          const haystack = [
+            article.data.title,
+            article.data.meta_description,
+            article.data.primary_keyword,
+            ...article.data.secondary_keywords,
+            article.data.category,
+            article.data.content_type,
+            article.data.content_id,
+          ]
+            .join(' ')
+            .toLowerCase();
+          return (
+            <li data-search={haystack}>
+              <a href={`/${article.data.category}/${article.data.slug}`}>
+                {article.data.status !== 'published' && <span class="badge">{article.data.status}</span>}
+                {article.data.title}
+              </a>
+              <p>
+                {CONTENT_TYPE_LABELS[article.data.content_type]} · {article.data.meta_description}
+              </p>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</BaseLayout>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const query = (params.get('q') || '').trim();
+  const input = document.querySelector('#q');
+  if (input instanceof HTMLInputElement && query) input.value = query;
+  const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+  const items = [...document.querySelectorAll('#results li')];
+  let shown = 0;
+  for (const item of items) {
+    if (!(item instanceof HTMLElement)) continue;
+    const haystack = item.dataset.search || '';
+    const match = terms.every((term) => haystack.includes(term));
+    item.hidden = terms.length > 0 && !match;
+    if (!item.hidden) shown += 1;
+  }
+  const count = document.querySelector('#search-count');
+  if (count) {
+    count.textContent = terms.length
+      ? `${shown} match${shown === 1 ? '' : 'es'} for “${query}”.`
+      : `${shown} articles in the index, including samples.`;
+  }
+</script>

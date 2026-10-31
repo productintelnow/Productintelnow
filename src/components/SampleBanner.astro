@@ -1,0 +1,11 @@
+---
+const { status } = Astro.props;
+const label = status === 'draft' ? 'Draft' : 'Sample';
+---
+
+<aside class="sample-banner" role="note">
+  <p>
+    <strong>{label} template.</strong> Demo products are fictional (Example Brand, product ids starting with demo-).
+    This page is not a review, a ranking, a price, or a recommendation. It is excluded from the sitemap and marked noindex.
+  </p>
+</aside>

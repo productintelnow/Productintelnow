@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { site } from '../config/site';
+import { breadcrumbLd } from '../lib/structured.mjs';
+
+const title = 'Affiliate disclosure';
+const description = 'GarageIntel earns from qualifying Amazon and other affiliate purchases. Links are marked, missing links stay inactive, and tracking ids are not used to identify readers.';
+const crumbs = [
+  { href: '/', label: 'Home' },
+  { href: '/affiliate-disclosure', label: 'Affiliate disclosure' },
+];
+---
+
+<BaseLayout title={title} description={description} jsonLd={[breadcrumbLd(site.url, crumbs)]}>
+  <div class="wrap prose">
+    <Breadcrumbs items={crumbs} />
+    <h1>Affiliate disclosure</h1>
+    <p class="lede"><strong>{site.disclosure}</strong></p>
+    <p>
+      That sentence is also in the footer of every page and at the top of any article that lists a product. Next to each price control, the page repeats that the control is an affiliate link.
+    </p>
+    <h2>What the link does</h2>
+    <p>
+      A live affiliate link uses <code>rel="sponsored nofollow noopener"</code> and opens in a new tab. The visible label for Amazon is “Check current price on Amazon.” Other retailers, if one is added later, are named in the label. The page does not show a price, a strikethrough price, or a stock claim.
+    </p>
+    <p>
+      If the database says the URL is missing, the control is not a link. The sentinel value used in the data file is never placed in an <code>href</code>. You can see that state on the sample articles.
+    </p>
+    <h2>Tracking ids</h2>
+    <p>
+      Amazon Associates tracking ids are stored once, by strategy: garage tools, automotive, robot vacuums, smart home, security, smart locks, deals, comparisons, buying guides, and social. A deal page and a buying guide can point at the same product with different ids. The id describes the page. It is not a user id, and analytics events do not include it.
+    </p>
+    <p>
+      The ids in version 1 are placeholders. No commission can be attributed until the owner replaces them and verifies each URL.
+    </p>
+    <h2>How this affects a review</h2>
+    <p>
+      Compensation does not decide the contents of a specification row. A product with no working link can still be described, and a product with a link can still be a poor fit. The <a href="/how-we-review">review method</a> says what has to be sourced before a page is published.
+    </p>
+  </div>
+</BaseLayout>

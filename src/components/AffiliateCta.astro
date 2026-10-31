@@ -1,0 +1,44 @@
+---
+import { ctaLabel, destinationDomain } from '../lib/affiliate.mjs';
+import { site } from '../config/site';
+
+const { href, link, article, product, location } = Astro.props;
+const live = typeof href === 'string' && href.startsWith('https://');
+const label = link ? ctaLabel(link) : site.amazonCta;
+const domain = live ? destinationDomain(href) : '';
+---
+
+<div class="cta-block">
+  {
+    live ? (
+      <a
+        class="cta"
+        href={href}
+        rel="sponsored nofollow noopener"
+        target="_blank"
+        data-affiliate-click
+        data-content-id={article.content_id}
+        data-product-id={product.product_id}
+        data-product-name={product.product_name}
+        data-category={article.category}
+        data-content-type={article.content_type}
+        data-affiliate-network={link.network}
+        data-retailer={link.retailer}
+        data-button-location={location}
+        data-destination-domain={domain}
+      >
+        {label}
+      </a>
+    ) : (
+      <span class="cta-disabled">{label}</span>
+    )
+  }
+  <p class="link-disclosure">
+    {
+      link?.network === 'other'
+        ? 'Affiliate link.'
+        : `Affiliate link. ${site.disclosure}`
+    }
+  </p>
+  {!live && <p class="cta-note">Affiliate link unavailable. This control does not leave the site.</p>}
+</div>

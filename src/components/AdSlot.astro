@@ -1,0 +1,22 @@
+---
+import { site } from '../config/site';
+
+const { placement } = Astro.props;
+---
+
+{
+  site.adsense && (
+    <aside class="ad-slot" aria-label="Advertisement" data-ad-placement={placement}>
+      <p class="ad-label">Advertisement</p>
+      <div class="ad-reserve">
+        <ins
+          class="adsbygoogle"
+          style="display:block"
+          data-ad-client={site.adsense}
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        />
+      </div>
+    </aside>
+  )
+}

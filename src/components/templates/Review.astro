@@ -1,0 +1,11 @@
+---
+import ProductCard from '../ProductCard.astro';
+
+const { article, resolved } = Astro.props;
+---
+
+<section aria-labelledby="review-product">
+  <h2 id="review-product">The product</h2>
+  {article.verdict && <aside class="callout"><p><strong>Verdict slot.</strong> {article.verdict}</p></aside>}
+  {resolved.map((item) => <ProductCard item={item} article={article} location="review-card" />)}
+</section>

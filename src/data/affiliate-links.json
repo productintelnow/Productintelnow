@@ -1,0 +1,178 @@
+{
+  "al-demo-impact-driver": {
+    "link_id": "al-demo-impact-driver",
+    "product_id": "demo-impact-driver",
+    "network": "amazon",
+    "retailer": "Amazon",
+    "url": "AFFILIATE_LINK_MISSING",
+    "tracking_id": "[AMAZON_TRACKING_ID_GARAGE_TOOLS]",
+    "strategy": "garage-tools",
+    "date_verified": "",
+    "status": "missing"
+  },
+  "al-demo-compact-driver": {
+    "link_id": "al-demo-compact-driver",
+    "product_id": "demo-compact-driver",
+    "network": "amazon",
+    "retailer": "Amazon",
+    "url": "AFFILIATE_LINK_MISSING",
+    "tracking_id": "[AMAZON_TRACKING_ID_GARAGE_TOOLS]",
+    "strategy": "garage-tools",
+    "date_verified": "",
+    "status": "missing"
+  },
+  "al-demo-obd-scanner": {
+    "link_id": "al-demo-obd-scanner",
+    "product_id": "demo-obd-scanner",
+    "network": "amazon",
+    "retailer": "Amazon",
+    "url": "AFFILIATE_LINK_MISSING",
+    "tracking_id": "[AMAZON_TRACKING_ID_AUTOMOTIVE]",
+    "strategy": "automotive",
+    "date_verified": "",
+    "status": "missing"
+  },
+  "al-demo-smart-plug": {
+    "link_id": "al-demo-smart-plug",
+    "product_id": "demo-smart-plug",
+    "network": "amazon",
+    "retailer": "Amazon",
+    "url": "AFFILIATE_LINK_MISSING",
+    "tracking_id": "[AMAZON_TRACKING_ID_SMART_HOME]",
+    "strategy": "smart-home",
+    "date_verified": "",
+    "status": "missing"
+  },
+  "al-demo-smart-plug-mini": {
+    "link_id": "al-demo-smart-plug-mini",
+    "product_id": "demo-smart-plug-mini",
+    "network": "amazon",
+    "retailer": "Amazon",
+    "url": "AFFILIATE_LINK_MISSING",
+    "tracking_id": "[AMAZON_TRACKING_ID_SMART_HOME]",
+    "strategy": "smart-home",
+    "date_verified": "",
+    "status": "missing"
+  },
+  "al-demo-door-opener": {
+    "link_id": "al-demo-door-opener",
+    "product_id": "demo-door-opener",
+    "network": "amazon",
+    "retailer": "Amazon",
+    "url": "AFFILIATE_LINK_MISSING",
+    "tracking_id": "[AMAZON_TRACKING_ID_GARAGE_TOOLS]",
+    "strategy": "garage-tools",
+    "date_verified": "",
+    "status": "missing"
+  },
+  "al-demo-robot-vacuum": {
+    "link_id": "al-demo-robot-vacuum",
+    "product_id": "demo-robot-vacuum",
+    "network": "amazon",
+    "retailer": "Amazon",
+    "url": "AFFILIATE_LINK_MISSING",
+    "tracking_id": "[AMAZON_TRACKING_ID_ROBOT_VACUUMS]",
+    "strategy": "robot-vacuums",
+    "date_verified": "",
+    "status": "missing"
+  },
+  "al-demo-robot-slim": {
+    "link_id": "al-demo-robot-slim",
+    "product_id": "demo-robot-slim",
+    "network": "amazon",
+    "retailer": "Amazon",
+    "url": "AFFILIATE_LINK_MISSING",
+    "tracking_id": "[AMAZON_TRACKING_ID_ROBOT_VACUUMS]",
+    "strategy": "robot-vacuums",
+    "date_verified": "",
+    "status": "missing"
+  },
+  "al-demo-camera": {
+    "link_id": "al-demo-camera",
+    "product_id": "demo-camera",
+    "network": "amazon",
+    "retailer": "Amazon",
+    "url": "AFFILIATE_LINK_MISSING",
+    "tracking_id": "[AMAZON_TRACKING_ID_SECURITY]",
+    "strategy": "security",
+    "date_verified": "",
+    "status": "missing"
+  },
+  "al-demo-camera-alt": {
+    "link_id": "al-demo-camera-alt",
+    "product_id": "demo-camera-alt",
+    "network": "amazon",
+    "retailer": "Amazon",
+    "url": "AFFILIATE_LINK_MISSING",
+    "tracking_id": "[AMAZON_TRACKING_ID_SECURITY]",
+    "strategy": "security",
+    "date_verified": "",
+    "status": "missing"
+  },
+  "al-demo-smart-lock": {
+    "link_id": "al-demo-smart-lock",
+    "product_id": "demo-smart-lock",
+    "network": "amazon",
+    "retailer": "Amazon",
+    "url": "AFFILIATE_LINK_MISSING",
+    "tracking_id": "[AMAZON_TRACKING_ID_SMART_LOCKS]",
+    "strategy": "smart-locks",
+    "date_verified": "",
+    "status": "missing"
+  },
+  "al-demo-impact-driver-deal": {
+    "link_id": "al-demo-impact-driver-deal",
+    "product_id": "demo-impact-driver",
+    "network": "amazon",
+    "retailer": "Amazon",
+    "url": "AFFILIATE_LINK_MISSING",
+    "tracking_id": "[AMAZON_TRACKING_ID_DEALS]",
+    "strategy": "deals",
+    "date_verified": "",
+    "status": "missing"
+  },
+  "al-demo-smart-plug-compare": {
+    "link_id": "al-demo-smart-plug-compare",
+    "product_id": "demo-smart-plug",
+    "network": "amazon",
+    "retailer": "Amazon",
+    "url": "AFFILIATE_LINK_MISSING",
+    "tracking_id": "[AMAZON_TRACKING_ID_COMPARISONS]",
+    "strategy": "comparisons",
+    "date_verified": "",
+    "status": "missing"
+  },
+  "al-demo-smart-plug-mini-compare": {
+    "link_id": "al-demo-smart-plug-mini-compare",
+    "product_id": "demo-smart-plug-mini",
+    "network": "amazon",
+    "retailer": "Amazon",
+    "url": "AFFILIATE_LINK_MISSING",
+    "tracking_id": "[AMAZON_TRACKING_ID_COMPARISONS]",
+    "strategy": "comparisons",
+    "date_verified": "",
+    "status": "missing"
+  },
+  "al-demo-robot-vacuum-guide": {
+    "link_id": "al-demo-robot-vacuum-guide",
+    "product_id": "demo-robot-vacuum",
+    "network": "amazon",
+    "retailer": "Amazon",
+    "url": "AFFILIATE_LINK_MISSING",
+    "tracking_id": "[AMAZON_TRACKING_ID_BUYING_GUIDES]",
+    "strategy": "buying-guides",
+    "date_verified": "",
+    "status": "missing"
+  },
+  "al-demo-robot-slim-guide": {
+    "link_id": "al-demo-robot-slim-guide",
+    "product_id": "demo-robot-slim",
+    "network": "amazon",
+    "retailer": "Amazon",
+    "url": "AFFILIATE_LINK_MISSING",
+    "tracking_id": "[AMAZON_TRACKING_ID_BUYING_GUIDES]",
+    "strategy": "buying-guides",
+    "date_verified": "",
+    "status": "missing"
+  }
+}

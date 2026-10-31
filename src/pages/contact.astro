@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { site } from '../config/site';
+import { breadcrumbLd } from '../lib/structured.mjs';
+
+const title = 'Contact';
+const description = 'How to reach GarageIntel. The contact email, legal entity, and mailing address are still owner placeholders, so version 1 has no message form.';
+const crumbs = [
+  { href: '/', label: 'Home' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+
+<BaseLayout title={title} description={description} jsonLd={[breadcrumbLd(site.url, crumbs)]}>
+  <div class="wrap prose">
+    <Breadcrumbs items={crumbs} />
+    <h1>Contact</h1>
+    <p class="lede">{description}</p>
+    <p>Email: <span class="placeholder">{site.contactEmail}</span></p>
+    <p>Legal entity: <span class="placeholder">{site.legalEntity}</span></p>
+    <p>Mailing address: <span class="placeholder">{site.mailingAddress}</span></p>
+    <p>
+      There is no contact form. A form would need a mailbox and a handler, and neither exists yet. Adding a button that says “send” would throw the message away. When the owner publishes an email address, this page can link to it with <code>mailto:</code>.
+    </p>
+    <p>
+      Corrections to a future published article should name the content id, which looks like GI-2026-0001, and the sentence that is wrong. The method is described on <a href="/how-we-review">How we review</a>.
+    </p>
+  </div>
+</BaseLayout>

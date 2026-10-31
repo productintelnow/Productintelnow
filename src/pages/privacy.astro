@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { site } from '../config/site';
+import { breadcrumbLd } from '../lib/structured.mjs';
+
+const title = 'Privacy policy';
+const description = 'How GarageIntel handles Google Analytics 4, Google AdSense, Amazon Associates, and on-site search. Analytics and ads load only after the owner sets the ids.';
+const crumbs = [
+  { href: '/', label: 'Home' },
+  { href: '/privacy', label: 'Privacy' },
+];
+---
+
+<BaseLayout title={title} description={description} jsonLd={[breadcrumbLd(site.url, crumbs)]}>
+  <div class="wrap prose">
+    <Breadcrumbs items={crumbs} />
+    <h1>Privacy policy</h1>
+    <p class="lede">{description}</p>
+    <p>
+      This notice describes version 1 of a static site. It is a practical explanation, not a lawyer’s opinion. The operator is <span class="placeholder">{site.legalEntity}</span>, which is a placeholder, at <span class="placeholder">{site.mailingAddress}</span>. Privacy questions go to <span class="placeholder">{site.contactEmail}</span> once that mailbox exists.
+    </p>
+    <h2>What the site stores on its own</h2>
+    <p>
+      Pages are prebuilt. There is no account, no comment box, and no contact form. Search runs in your browser against a list of titles that shipped with the page. The search words are put in the address bar as <code>?q=</code> so analytics can see a site search. They are not sent to a GarageIntel server, because there is no application server behind these pages.
+    </p>
+    <h2>Google Analytics 4</h2>
+    <p>
+      The Google tag (gtag) is added only when <code>PUBLIC_GA4_MEASUREMENT_ID</code> is set to a measurement id. That id is not set in version 1, so the tag is not on the page you are reading and Analytics is not setting cookies for this visit.
+    </p>
+    <p>
+      When the owner turns it on, Google Analytics 4 will load from Google and can set cookies such as <code>_ga</code> to distinguish browsers. Enhanced Measurement is expected to be enabled in the GA4 admin. GarageIntel relies on that setting for page views, scroll depth, outbound clicks, and site search. We do not send a user id. We do not send your name or email.
+    </p>
+    <p>
+      A click on a live affiliate button also sends custom events: <code>affiliate_click</code>, and where it fits <code>amazon_click</code>, <code>retailer_click</code>, <code>deal_click</code>, or <code>comparison_click</code>. The parameters are the article id, product id, product name, category, content type, network, retailer, button location, and the destination domain only. The full link, including any tracking id, is not a parameter.
+    </p>
+    <p>
+      Google’s own description of these cookies is in <a href="https://policies.google.com/privacy" rel="noopener noreferrer">Google’s privacy policy</a> and <a href="https://policies.google.com/technologies/partner-sites" rel="noopener noreferrer">how Google uses information from partner sites</a>.
+    </p>
+    <p>
+      Version 1 does not include a cookie-consent banner. If visitors are in a place that requires consent before analytics or advertising cookies, the owner should add a consent tool before setting the measurement id.
+    </p>
+    <h2>Google AdSense</h2>
+    <p>
+      The AdSense script loads only when <code>PUBLIC_ADSENSE_CLIENT_ID</code> is a <code>ca-pub-</code> id. It is not set, so advertising cookies are not being set by this site today, and the legal pages do not reserve ad space. <code>ads.txt</code> is generated at build time. Until a client id exists, that file says no seller is authorized.
+    </p>
+    <p>
+      When ads are enabled, Google may use cookies to show and measure ads, including on pages that are not this one, as described in Google’s advertising documentation. Ad slots are labeled “Advertisement,” use a reserved height, and are kept off of pages whose only job is a price button. They are also omitted from legal pages, deal templates, and the calculator.
+    </p>
+    <h2>Amazon Associates</h2>
+    <p>
+      {site.disclosure} If you follow a live affiliate link, Amazon receives the request and can set its own cookies under Amazon’s policies. GarageIntel does not receive your order, your address, or your payment details. Sample pages do not contain a live Amazon link.
+    </p>
+    <h2>Children</h2>
+    <p>The site is written for adults buying gear for a home or a vehicle. It is not directed at children, and it does not ask for a child’s information.</p>
+    <h2>Changes</h2>
+    <p>When this notice changes, the date on the page will change with the article-style revision habit used everywhere else: update the visible copy and ship it through review. This version was written for the first publishing system on 2026-10-31.</p>
+  </div>
+</BaseLayout>
