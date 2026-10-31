@@ -1,0 +1,46 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArticleShell from '../../components/ArticleShell.astro';
+import { fetchCreatorsSnapshots } from '../../lib/amazon/creators';
+import { resolveArticleData } from '../../lib/resolve.mjs';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map((article) => ({
+    params: { section: article.data.category, slug: article.data.slug },
+  }));
+}
+
+const { section, slug } = Astro.params;
+const articles = await getCollection('articles');
+const productEntries = await getCollection('products');
+const linkEntries = await getCollection('affiliateLinks');
+const article = articles.find((item) => item.data.category === section && item.data.slug === slug);
+if (!article) {
+  throw new Error(`No article for /${section}/${slug}`);
+}
+
+const productsById = new Map(productEntries.map((entry) => [entry.data.product_id, entry.data]));
+const linksById = new Map(linkEntries.map((entry) => [entry.data.link_id, entry.data]));
+const resolved = resolveArticleData(article.data, productsById, linksById);
+const creators = await fetchCreatorsSnapshots(
+  resolved.map((item) => ({
+    productId: item.product.product_id,
+    asin: item.product.asin || undefined,
+  })),
+);
+if (creators !== null) {
+  throw new Error('Creators API returned data before a real client exists. Refusing to render invented product facts.');
+}
+
+const related = articles
+  .filter((item) => item.data.content_id !== article.data.content_id)
+  .filter((item) => item.data.category === article.data.category || item.data.content_type === article.data.content_type)
+  .slice(0, 4);
+
+const { Content } = await render(article);
+---
+
+<ArticleShell article={article.data} resolved={resolved} related={related}>
+  <Content />
+</ArticleShell>

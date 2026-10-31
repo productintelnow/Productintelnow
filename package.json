@@ -1,0 +1,26 @@
+{
+  "name": "garageintel",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "GarageIntel — affiliate product-intelligence site (static Astro).",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "preview": "astro preview",
+    "validate": "node scripts/validate.mjs",
+    "check:links": "node scripts/check-links.mjs",
+    "check:mobile": "node scripts/mobile-screenshots.mjs",
+    "check": "npm run build && npm run validate && npm run check:links"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource/source-sans-3": "^5.3.1",
+    "@fontsource/source-serif-4": "^5.3.1",
+    "astro": "^7.4.4",
+    "yaml": "^2.9.1"
+  }
+}

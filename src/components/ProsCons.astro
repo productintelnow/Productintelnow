@@ -1,0 +1,30 @@
+---
+const { pros = [], cons = [] } = Astro.props;
+---
+
+{
+  (pros.length > 0 || cons.length > 0) && (
+    <section class="pros-cons" aria-label="Pros and cons">
+      {pros.length > 0 && (
+        <div>
+          <h2>Pros</h2>
+          <ul>
+            {pros.map((item: string) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {cons.length > 0 && (
+        <div>
+          <h2>Cons</h2>
+          <ul>
+            {cons.map((item: string) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </section>
+  )
+}

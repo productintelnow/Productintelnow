@@ -1,0 +1,23 @@
+---
+import ProductCard from '../ProductCard.astro';
+
+const { article, resolved } = Astro.props;
+---
+
+<section aria-labelledby="compat-heading">
+  <h2 id="compat-heading">Compatibility</h2>
+  <table class="compat-table">
+    <caption class="visually-hidden">Compatibility notes</caption>
+    <tbody>
+      {
+        (article.compatibility_notes ?? []).map((row) => (
+          <tr>
+            <th scope="row">{row.label}</th>
+            <td>{row.value}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+  {resolved.map((item) => <ProductCard item={item} article={article} location="compatibility-card" />)}
+</section>

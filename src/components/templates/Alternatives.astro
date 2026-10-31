@@ -1,0 +1,13 @@
+---
+import ProductCard from '../ProductCard.astro';
+
+const { article, resolved } = Astro.props;
+---
+
+<section aria-labelledby="alt-heading">
+  <h2 id="alt-heading">Why look elsewhere</h2>
+  <ul>
+    {article.alternatives.map((alt) => <li><strong>{alt.product_id}.</strong> {alt.reason}</li>)}
+  </ul>
+  {resolved.map((item) => <ProductCard item={item} article={article} location="alternatives-card" />)}
+</section>

@@ -1,0 +1,19 @@
+---
+import ProductCard from '../ProductCard.astro';
+
+const { article, resolved } = Astro.props;
+const ordered = [...resolved].sort((a, b) => (a.ref.rank ?? 99) - (b.ref.rank ?? 99));
+---
+
+<section aria-labelledby="ranked-heading">
+  <h2 id="ranked-heading">Products in this roundup</h2>
+  <ol class="article-list">
+    {
+      ordered.map((item) => (
+        <li>
+          <ProductCard item={item} article={article} location="best-of-card" />
+        </li>
+      ))
+    }
+  </ol>
+</section>

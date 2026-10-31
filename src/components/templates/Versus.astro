@@ -1,0 +1,27 @@
+---
+import ProductCard from '../ProductCard.astro';
+
+const { article, resolved } = Astro.props;
+---
+
+<section aria-labelledby="versus-heading">
+  <h2 id="versus-heading">Side by side</h2>
+  {article.verdict && <aside class="callout"><p><strong>Verdict slot.</strong> {article.verdict}</p></aside>}
+  <div class="compare">
+    <div class="compare-head">
+      <span class="compare-label">Question</span>
+      {resolved.map((item) => <span>{item.product.product_name}</span>)}
+    </div>
+    {
+      (article.comparison_rows ?? []).map((row) => (
+        <div class="compare-row">
+          <span class="compare-label">{row.label}</span>
+          {row.values.map((value: string) => (
+            <span>{value}</span>
+          ))}
+        </div>
+      ))
+    }
+  </div>
+  {resolved.map((item) => <ProductCard item={item} article={article} location="comparison-table" />)}
+</section>

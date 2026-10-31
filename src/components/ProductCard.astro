@@ -1,0 +1,51 @@
+---
+import AffiliateCta from './AffiliateCta.astro';
+import PlaceholderImage from './PlaceholderImage.astro';
+
+const { item, article, location } = Astro.props;
+const { ref, product, links } = item;
+---
+
+<article class="product-card" id={`product-${product.product_id}`}>
+  <PlaceholderImage
+    imageKey="placeholder:product-neutral"
+    alt={`Neutral placeholder for ${product.product_name}. Not a photograph of a product.`}
+  />
+  <div>
+    <p class="kicker">{product.brand} · {product.model}</p>
+    <h3>{ref.rank ? `${ref.rank}. ` : ''}{product.product_name}</h3>
+    <p class="meta-line">Role: {ref.role} · Id: {product.product_id}</p>
+    {ref.editor_note && <p>{ref.editor_note}</p>}
+    <p class="image-source">Image source: {product.image_source}</p>
+    {
+      links.length > 0 ? (
+        links.map((row) => (
+          <AffiliateCta
+            href={row.href}
+            link={row.link}
+            article={article}
+            product={product}
+            location={location}
+          />
+        ))
+      ) : (
+        <AffiliateCta href={null} link={null} article={article} product={product} location={location} />
+      )
+    }
+    {
+      ref.pros?.length > 0 && (
+        <div>
+          <h4>Sample notes for this card</h4>
+          <ul>
+            {ref.pros.map((pro: string) => (
+              <li>{pro}</li>
+            ))}
+            {ref.cons?.map((con: string) => (
+              <li>{con}</li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </div>
+</article>

@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { site } from '../config/site';
+import { breadcrumbLd } from '../lib/structured.mjs';
+
+const title = 'How we review';
+const description = 'How GarageIntel will research, source, and correct product pages. Version 1 has the method and the templates. It does not yet have published tests.';
+const crumbs = [
+  { href: '/', label: 'Home' },
+  { href: '/how-we-review', label: 'How we review' },
+];
+---
+
+<BaseLayout title={title} description={description} jsonLd={[breadcrumbLd(site.url, crumbs)]}>
+  <div class="wrap prose">
+    <Breadcrumbs items={crumbs} />
+    <h1>How we review</h1>
+    <p class="lede">{description}</p>
+    <p>
+      A GarageIntel article is a record, not a mood. The content id, the product ids, the sources, and the status are part of the page. If a fact is missing, the template is supposed to say so. Filling a blank with a typical number from another brand is a failed edit, not a shortcut.
+    </p>
+    <h2>What version 1 contains</h2>
+    <p>
+      The sample articles are layout previews. Their pros, cons, and specification rows are labeled as samples. No garage was used as a lab for them, and no score was assigned. Structured data for reviews does not include a rating, because we will not invent one.
+    </p>
+    <h2>What a published article has to clear</h2>
+    <ul>
+      <li>The product row has a real brand, model, and image source. An ASIN is stored only when it is the actual ASIN.</li>
+      <li>Claims about fit, power, protocols, or capacity cite a manual, a standard, or notes from a test the author actually ran.</li>
+      <li>The affiliate URL is https, the tracking id matches the strategy for that page, and the link was checked on the date in the record.</li>
+      <li>Status changes from sample or draft to published only after validation passes. Published pages are the ones allowed into the sitemap.</li>
+    </ul>
+    <h2>Prices</h2>
+    <p>
+      We do not display an Amazon price or an availability line. The button, when the link exists, says “Check current price on Amazon” and opens the retailer. A future Creators API client may be added in <code>src/lib/amazon/creators.ts</code>. Until that client is real, it returns nothing. It is not allowed to fabricate a price to make the template look finished.
+    </p>
+    <h2>Affiliate relationship</h2>
+    <p>
+      {site.disclosure} Tracking ids are chosen by the kind of page — tools, automotive, a buying guide, a comparison — and not by anything that identifies a reader. The <a href="/affiliate-disclosure">disclosure page</a> has the detail.
+    </p>
+    <h2>Safety</h2>
+    <p>
+      Troubleshooting pages separate a symptom from a procedure. Jobs that can injure someone, including garage-door springs and cables, do not get improvised steps. If the manual says to stop, the article stops.
+    </p>
+    <h2>Corrections</h2>
+    <p>
+      When the contact mailbox exists, corrections go to <span class="placeholder">{site.contactEmail}</span>. A correction updates <code>last_updated</code> and the revision number. Until that mailbox is real, there is no form on the <a href="/contact">contact page</a>, because a form that cannot deliver a message would drop it.
+    </p>
+  </div>
+</BaseLayout>

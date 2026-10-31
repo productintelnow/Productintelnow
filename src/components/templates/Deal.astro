@@ -1,0 +1,11 @@
+---
+import ProductCard from '../ProductCard.astro';
+
+const { article, resolved } = Astro.props;
+---
+
+<section aria-labelledby="deal-heading">
+  <h2 id="deal-heading">Deal note</h2>
+  <aside class="callout"><p>{article.deal_note}</p></aside>
+  {resolved.map((item) => <ProductCard item={item} article={article} location="deal-card" />)}
+</section>

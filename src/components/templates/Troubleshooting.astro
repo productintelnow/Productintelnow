@@ -1,0 +1,14 @@
+---
+import ProductCard from '../ProductCard.astro';
+
+const { article, resolved } = Astro.props;
+---
+
+<section aria-labelledby="symptom-heading">
+  <h2 id="symptom-heading">Symptom</h2>
+  <aside class="callout">
+    <p>{article.symptom}</p>
+    <p>This template does not include repair steps. Springs and cables on a real door can injure you. Use the manual for your own opener.</p>
+  </aside>
+  {resolved.map((item) => <ProductCard item={item} article={article} location="troubleshooting-card" />)}
+</section>

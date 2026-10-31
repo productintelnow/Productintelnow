@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="GarageIntel">
+  <rect width="32" height="32" rx="4" fill="#161814"/>
+  <rect x="4" y="4" width="24" height="3" fill="#9d3414"/>
+  <path d="M8 22 V12 h6 v10 M18 22 V10 h6 v12" fill="none" stroke="#f4f0e6" stroke-width="2"/>
+</svg>

@@ -1,0 +1,133 @@
+---
+import '../styles/global.css';
+import '@fontsource/source-sans-3/latin-400.css';
+import '@fontsource/source-sans-3/latin-600.css';
+import '@fontsource/source-serif-4/latin-600.css';
+import '@fontsource/source-serif-4/latin-600-italic.css';
+import '@fontsource/source-serif-4/latin-700.css';
+import { getImage } from 'astro:assets';
+import hero from '../assets/placeholders/hero-neutral.png';
+import social from '../assets/placeholders/social-neutral.png';
+import product from '../assets/placeholders/product-neutral.png';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import JsonLd from '../components/JsonLd.astro';
+import { documentTitle, site } from '../config/site';
+import { organizationLd, websiteLd } from '../lib/structured.mjs';
+
+interface Props {
+  title: string;
+  description: string;
+  noindex?: boolean;
+  ogType?: 'website' | 'article';
+  socialKey?: string;
+  jsonLd?: unknown[];
+  contentStatus?: string;
+}
+
+const {
+  title,
+  description,
+  noindex = false,
+  ogType = 'website',
+  socialKey = 'placeholder:social-neutral',
+  jsonLd = [],
+  contentStatus = 'page',
+} = Astro.props;
+
+const fullTitle = documentTitle(title);
+const canonical = new URL(Astro.url.pathname, Astro.site);
+canonical.search = '';
+canonical.hash = '';
+
+const assets = {
+  'placeholder:hero-neutral': hero,
+  'placeholder:product-neutral': product,
+  'placeholder:social-neutral': social,
+};
+const ogImage = await getImage({
+  src: assets[socialKey as keyof typeof assets] ?? social,
+  width: 1200,
+  height: 630,
+  format: 'webp',
+});
+const ogUrl = new URL(ogImage.src, Astro.site).href;
+const robots = noindex ? 'noindex, follow' : 'index, follow';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical.href} />
+    <meta name="robots" content={robots} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:image" content={ogUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogUrl} />
+    {site.gsc && <meta name="google-site-verification" content={site.gsc} />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <JsonLd data={organizationLd(site.url)} />
+    <JsonLd data={websiteLd(site.url)} />
+    {jsonLd.map((block) => <JsonLd data={block} />)}
+    {
+      site.ga4 && (
+        <>
+          <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${site.ga4}`}></script>
+          <script is:inline define:vars={{ ga4: site.ga4 }}>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+              dataLayer.push(arguments);
+            }
+            window.gtag = gtag;
+            gtag('js', new Date());
+            gtag('config', ga4);
+          </script>
+        </>
+      )
+    }
+    {
+      site.adsense && (
+        <script
+          is:inline
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${site.adsense}`}
+          crossorigin="anonymous"
+        ></script>
+      )
+    }
+  </head>
+  <body data-content-status={contentStatus} data-robots={robots}>
+    <a class="skip" href="#main">Skip to content</a>
+    <Header />
+    <main id="main" class="page">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import '../scripts/affiliate-events.js';
+    </script>
+    {
+      site.adsense && (
+        <script is:inline>
+          document.querySelectorAll('ins.adsbygoogle').forEach(() => {
+            try {
+              (window.adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (error) {
+              /* Ads may be blocked. The reserved box stays labeled. */
+            }
+          });
+        </script>
+      )
+    }
+  </body>
+</html>

@@ -1,0 +1,60 @@
+---
+import { crossSections, topicSections } from '../config/sections.mjs';
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+function current(href: string) {
+  return pathname === href ? 'page' : undefined;
+}
+---
+
+<header class="site-header">
+  <div class="top-stripe"></div>
+  <div class="bar">
+    <a class="wordmark" href="/">Garage<span>Intel</span></a>
+    <form class="header-search" action="/search" method="get" role="search">
+      <label class="visually-hidden" for="header-q">Search GarageIntel</label>
+      <input id="header-q" type="search" name="q" placeholder="Search articles" autocomplete="off" />
+    </form>
+    <details class="menu">
+      <summary>Menu</summary>
+      <div class="menu-panel">
+        <p class="nav-label">Sections</p>
+        {
+          topicSections.map((section) => (
+            <a href={`/${section.slug}`} aria-current={current(`/${section.slug}`)}>
+              {section.title}
+            </a>
+          ))
+        }
+        <p class="nav-label">Library</p>
+        {
+          crossSections.map((section) => (
+            <a href={`/${section.slug}`} aria-current={current(`/${section.slug}`)}>
+              {section.title}
+            </a>
+          ))
+        }
+        <p class="nav-label">About</p>
+        <a href="/about" aria-current={current('/about')}>About</a>
+        <a href="/how-we-review" aria-current={current('/how-we-review')}>How we review</a>
+        <a href="/affiliate-disclosure" aria-current={current('/affiliate-disclosure')}>Affiliate disclosure</a>
+      </div>
+    </details>
+  </div>
+  <nav class="primary-nav" aria-label="Sections">
+    <div class="wrap">
+      <ul>
+        {
+          [...topicSections, ...crossSections].map((section) => (
+            <li>
+              <a href={`/${section.slug}`} aria-current={current(`/${section.slug}`)}>
+                {section.title}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </nav>
+</header>

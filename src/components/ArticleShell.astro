@@ -1,0 +1,92 @@
+---
+import { AD_CONTENT_TYPES, CONTENT_TYPE_LABELS } from '../config/constants.mjs';
+import { sectionBySlug } from '../config/sections.mjs';
+import { site } from '../config/site';
+import { articleLd, breadcrumbLd, faqLd, itemListLd, productLd } from '../lib/structured.mjs';
+import AdSlot from './AdSlot.astro';
+import AffiliateDisclosure from './AffiliateDisclosure.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+import FaqList from './FaqList.astro';
+import PlaceholderImage from './PlaceholderImage.astro';
+import ProsCons from './ProsCons.astro';
+import RelatedArticles from './RelatedArticles.astro';
+import SampleBanner from './SampleBanner.astro';
+import SpecTable from './SpecTable.astro';
+import TemplateRouter from './templates/TemplateRouter.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const { article, resolved, related } = Astro.props;
+const section = sectionBySlug(article.category);
+const path = `/${article.category}/${article.slug}`;
+const crumbs = [
+  { href: '/', label: 'Home' },
+  { href: `/${section?.slug ?? article.category}`, label: section?.title ?? article.category },
+  { href: path, label: article.title },
+];
+const showAds = AD_CONTENT_TYPES.has(article.content_type);
+const noindex = article.status !== 'published';
+const blocks = [
+  breadcrumbLd(site.url, crumbs),
+  articleLd({ siteUrl: site.url, path, article, image: undefined }),
+  faqLd(article.faqs),
+  article.content_type === 'best-of' ? itemListLd(site.url, path, resolved) : null,
+  article.content_type === 'review' ? productLd({ product: resolved[0]?.product, status: article.status }) : null,
+].filter(Boolean);
+
+---
+
+<BaseLayout
+  title={article.seo_title}
+  description={article.meta_description}
+  noindex={noindex}
+  ogType="article"
+  socialKey={article.social_image}
+  jsonLd={blocks}
+  contentStatus={article.status}
+>
+  <article class="wrap" data-affiliate-region={resolved.length > 0 ? 'true' : 'false'} data-content-id={article.content_id}>
+    {noindex && <SampleBanner status={article.status} />}
+    {resolved.length > 0 && <AffiliateDisclosure />}
+    <Breadcrumbs items={crumbs} />
+    <p class="kicker">{CONTENT_TYPE_LABELS[article.content_type]} · {section?.title}</p>
+    <h1>{article.title}</h1>
+    <p class="lede">{article.meta_description}</p>
+    <p class="meta-line">
+      {article.author} · Published {article.publish_date} · Updated {article.last_updated} · {article.content_id} · Rev {article.revision}
+    </p>
+    <figure class="hero-figure">
+      <PlaceholderImage imageKey={article.hero_image} alt={article.hero_image_alt} priority={true} />
+      <figcaption>Placeholder graphic. Not a product photograph. Key: {article.hero_image}.</figcaption>
+    </figure>
+    {showAds && <AdSlot placement="after-intro" />}
+    <div class="prose">
+      <slot />
+    </div>
+    {showAds && <AdSlot placement="mid-content" />}
+    <TemplateRouter article={article} resolved={resolved} />
+    <SpecTable rows={article.specifications} />
+    <ProsCons pros={article.pros} cons={article.cons} />
+    {
+      article.sources?.length > 0 && (
+        <section aria-labelledby="sources-heading">
+          <h2 id="sources-heading">Sources</h2>
+          <ul>
+            {article.sources.map((source) => (
+              <li>
+                {source.url && source.url.startsWith('https://') ? (
+                  <a href={source.url} rel="noopener noreferrer">{source.title}</a>
+                ) : (
+                  source.title
+                )}
+                {source.note ? ` — ${source.note}` : ''}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+    {showAds && <AdSlot placement="before-faq" />}
+    <FaqList faqs={article.faqs} />
+    <RelatedArticles articles={related} />
+  </article>
+</BaseLayout>
